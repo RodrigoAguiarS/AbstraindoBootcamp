@@ -1,5 +1,6 @@
 package br.com.rodrigo;
 
+import br.com.rodrigo.dominio.Conteudo;
 import br.com.rodrigo.dominio.Curso;
 import br.com.rodrigo.dominio.Mentoria;
 
@@ -11,6 +12,10 @@ public class Main {
         curso.setTitulo("Curso Java");
         curso.setDescricao("descrição curso Java");
         curso.setCargaHoraria(8);
+
+        Conteudo conteudo = new Curso();
+
+        Conteudo conteudo1 = new Mentoria();
 
         Mentoria mentoria = new Mentoria();
         mentoria.setTitulo("Mentoria de Java");
