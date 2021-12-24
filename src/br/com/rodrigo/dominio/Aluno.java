@@ -2,6 +2,7 @@ package br.com.rodrigo.dominio;
 
 import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 public class Aluno {
@@ -10,6 +11,8 @@ public class Aluno {
     private Set<Conteudo> conteudosConcluido = new LinkedHashSet<>();
 
     public void inscreverBootcamp(Bootcamp bootcamp){
+        this.conteudosInscrito.addAll(bootcamp.getConteudos());
+        bootcamp.getAlunoInscritos().add(this);
 
     }
     public String getNome() {
@@ -37,9 +40,17 @@ public class Aluno {
     }
 
     public void progredir(){
+        Optional<Conteudo> conteudo = this.conteudosInscrito.stream().findFirst();
+        if (conteudo.isPresent()){
+            this.conteudosConcluido.add(conteudo.get());
+            this.conteudosInscrito.remove(conteudo.get());
+        }else {
+            System.err.println("Você não está matriculado em nenhum conteúdo");
+        }
 
     }
-    public void calcularTotalXp(){
+    public double calcularTotalXp(){
+       return this.conteudosConcluido.stream().mapToDouble(conteudo -> conteudo.calcularXP()).sum();
 
     }
 
